@@ -10,10 +10,10 @@
 #define _XTAL_FREQ   8000000
 #define RS           RC1
 #define RW           RC2
-#define E            RC3
+#define E            RC0
 #define RS_T         TRISCbits.TRISC1
 #define RW_T         TRISCbits.TRISC2
-#define E_T          TRISCbits.TRISC3
+#define E_T          TRISCbits.TRISC0
 #define LCD_PORT     PORTD
 #define LCD_TRIS     TRISD
 
