@@ -34,6 +34,7 @@
 #include "LCD.h"
 
 
+
 void init(void);
 
 void main(void) {
@@ -41,7 +42,14 @@ void main(void) {
     CONF_SPI();
     LCD_INIT();
     while (1) {
-        CONF_ADC();
+        
+       
+      
+        SPIWRITE(3); //ENVIAR EL DATO
+        SPIREAD();
+        
+          
+       // CONF_ADC();
     
     }
            
@@ -61,6 +69,7 @@ void init(void) {
     OSCCONbits.IRCF1 = 1;
     OSCCONbits.IRCF2 = 1; 
     ///////////////////////////////////////////////////////////
+    TRISAbits.TRISA5 =1;  
     TRISAbits.TRISA0 =1; //POTENCIOMETRO 0 
     TRISAbits.TRISA1 =1; //POTENCIOMETRO 1 
     TRISD =0b00000000; //se define el puerto D como salidas
