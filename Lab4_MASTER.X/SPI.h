@@ -7,8 +7,10 @@
 
 #ifndef SPI_H
 #define	SPI_H
-
+char RANDOM;
 void CONF_SPI(void);
+void SPIWRITE (char dato);
+void SPIREAD (void);
 
 
 #endif	/* SPI_H */
