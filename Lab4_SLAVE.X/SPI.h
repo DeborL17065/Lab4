@@ -13,8 +13,11 @@
 #define SCK  RC3
 #define SS   RA5
 
-void SPIWRITE (int dato);
+char RANDOM;
+
+void SPIWRITE (char dato);
 void CONF_SPI(void);
+void SPIREAD (void);
 
 
 
