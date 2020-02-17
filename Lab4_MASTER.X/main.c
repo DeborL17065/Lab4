@@ -39,19 +39,30 @@ int DEC_INC ;
 
 void main(void) {
     init();
-    CONF_SPI();
     _RX_TX();
-    while (1){
-        PORTD = DEC_INC;
+    CONF_SPI();
+    
+    while (1){ 
+        
+        SPIWRITE(3); //ENVIAR EL DATO
+        SPIREAD();
+        PORTD = RANDOM;
+     
+        
     
     }
-    return;
+    return;   
 }
 
 
 void __interrupt() isr(void){
-    while(1){
-        if (PIR1bits.RCIF ==1){
+
+    if (PIR1bits.RCIF ==1){
+        if(RCSTAbits.OERR ==1){
+            RCSTAbits.OERR =0;
+            __delay_us(255);
+        }
+        else {
             DEC_INC = RCREG;
         }
     }
@@ -66,6 +77,9 @@ void init(void) {
     OSCCONbits.IRCF0 = 1;
     OSCCONbits.IRCF1 = 1;
     OSCCONbits.IRCF2 = 1;
+    TRISAbits.TRISA5= 0;
+    PORTAbits.RA5 =0;
+    PORTA =0;
     ///////////////////////////////////////////////////////////
     TRISD =0b00000000; //se define el puerto D como salidas
     //////////////////////////////////////////////////////////////
