@@ -42,14 +42,12 @@ void main(void) {
     CONF_SPI();
     LCD_INIT();
     while (1) {
-        
-       
-      
-        SPIWRITE(3); //ENVIAR EL DATO
+        CONF_ADC();
+        SPIWRITE(ADRESH); //ENVIAR EL DATO
         SPIREAD();
         
           
-       // CONF_ADC();
+      
     
     }
            
