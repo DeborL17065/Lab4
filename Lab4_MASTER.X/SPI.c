@@ -7,7 +7,7 @@
 
 //MASTER
 
-
+#define _XTAL_FREQ   8000000
 #include <xc.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -29,7 +29,7 @@ void CONF_SPI(void) {
     SSPSTATbits.SMP = 0; //
     SSPSTATbits.CKE = 0;
     //-------CONFIGURACION SSPCON---------------------
-    SSPCON = 0b0010;
+    SSPCONbits.SSPM = 0b0010;
     SSPCONbits.CKP = 1; //ESTADO IDLE DEL RELOJ ES NIVEL ALTO
     SSPCONbits.SSPEN = 1; //ACTIVAR PUERTO SERIAL
     //SSPCONbits.SSPOV = 0; //LIMPIAR BANDERA OVERFLOW
@@ -51,6 +51,7 @@ void SPIREAD (void){
         SSPSTATbits.BF =0;  
         SSPCONbits.SSPOV = 0;
     }
+    
     return;
 }
 
