@@ -15,6 +15,7 @@
 #include "ADC.h"
 #include "LCD.h"
 
+char p[5];
 
 void CONF_ADC(void) {
    // INTCONbits.GIE = 1;
@@ -24,6 +25,7 @@ void CONF_ADC(void) {
     ADCON0bits.GO_DONE =1; //se inicia la conversión
     while(ADCON0bits.GO_DONE ==1); 
     SENSOR1 = ADRESH;
+    itoa(p,SENSOR1,10);
    // SPIWRITE(SENSOR1); //ENVIAR EL DATO
     V_SENSOR1 =(SENSOR1*5.0)/255; //se pasa de 0-5
     NUM1 = (V_SENSOR1)*100; ///SI FUERA 1.98
@@ -42,7 +44,7 @@ void CONF_ADC(void) {
     LCD_XY(0,2);
     LCD_Cadena("S1:  S2:  S3:"); 
     LCD_XY(1,2);
-    LCD_Cadena(SC);//manda el dato a la LCD
+    LCD_Cadena(p);//manda el dato a la LCD
    
 
 //    ADCON0 = 0b01000101; //AN1
