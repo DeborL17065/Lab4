@@ -1,4 +1,4 @@
-/*
+  /*
  * File:   main.c
  * Author: debor
  *
@@ -44,7 +44,7 @@ void main(void) {
     
     while (1){ 
         
-        SPIWRITE(3); //ENVIAR EL DATO
+        SPIWRITE("25"); //ENVIAR EL DATO
         SPIREAD();
         PORTD = RANDOM;
      
