@@ -46,7 +46,7 @@ void main(void) {
         
         SPIWRITE("25"); //ENVIAR EL DATO
         SPIREAD();
-        PORTD = RANDOM;
+        SerialSendChar(RANDOM);
      
         
     
