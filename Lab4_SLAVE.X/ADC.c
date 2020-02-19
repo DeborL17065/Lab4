@@ -25,8 +25,7 @@ void CONF_ADC(void) {
     ADCON0bits.GO_DONE =1; //se inicia la conversión
     while(ADCON0bits.GO_DONE ==1); 
     SENSOR1 = ADRESH;
-    itoa(p,SENSOR1,10);
-   // SPIWRITE(SENSOR1); //ENVIAR EL DATO
+    SPIWRITE(SENSOR1);
     V_SENSOR1 =(SENSOR1*5.0)/255; //se pasa de 0-5
     NUM1 = (V_SENSOR1)*100; ///SI FUERA 1.98
     A = NUM1%10;   //8
@@ -47,26 +46,26 @@ void CONF_ADC(void) {
     LCD_Cadena(p);//manda el dato a la LCD
    
 
-//    ADCON0 = 0b01000101; //AN1
-//    ADCON1 = 0b00000000;
-//    ADCON0bits.GO_DONE =1; //se inicia la conversión
-//    while(ADCON0bits.GO_DONE ==1); 
-//    SENSOR2 = ADRESH;
-//  //  SPIWRITE(SENSOR2); //ENVIAR EL DATO
-//    V_SENSOR2 =(SENSOR2*5.0)/255; //se pasa de 0-5
-//    NUM2 = (V_SENSOR2)*100; ///SI FUERA 1.98
-//    A = NUM2%10;   //8
-//    itoa(SA,A,10);
-//    B = (NUM2/10)%10;//9
-//    itoa(SB,B,10);
-//    C = (NUM2/100)%10;//1 
-//    itoa(SC,C,10);
-//    strcat(SB,SA); //se concatenan ambos chars
-//    strcpy(PUNTO1,"."); //se coloca el caracter dentro del char
-//    strcat(PUNTO1,SB); //se concatenan ambos chars
-//    strcat(SC,PUNTO1); //se concatenan ambos chars
-//    LCD_XY(1,7);
-//    LCD_Cadena(SC);//manda el dato a la LCD
+    ADCON0 = 0b01000101; //AN1
+    ADCON1 = 0b00000000;
+    ADCON0bits.GO_DONE =1; //se inicia la conversión
+    while(ADCON0bits.GO_DONE ==1); 
+    SENSOR2 = ADRESH;
+    SPIWRITE(SENSOR2); //ENVIAR EL DATO
+    V_SENSOR2 =(SENSOR2*5.0)/255; //se pasa de 0-5
+    NUM2 = (V_SENSOR2)*100; ///SI FUERA 1.98
+    A = NUM2%10;   //8
+    itoa(SA,A,10);
+    B = (NUM2/10)%10;//9
+    itoa(SB,B,10);
+    C = (NUM2/100)%10;//1 
+    itoa(SC,C,10);
+    strcat(SB,SA); //se concatenan ambos chars
+    strcpy(PUNTO1,"."); //se coloca el caracter dentro del char
+    strcat(PUNTO1,SB); //se concatenan ambos chars
+    strcat(SC,PUNTO1); //se concatenan ambos chars
+    LCD_XY(1,7);
+    LCD_Cadena(SC);//manda el dato a la LCD
    // SerialSendString(val2); //DATOS A ENVIARA AL ARDUINO
   
     
