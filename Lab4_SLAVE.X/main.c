@@ -43,7 +43,7 @@ void main(void) {
     LCD_INIT();
     while (1) {
         CONF_ADC();
-        SPIWRITE(ADRESH); //ENVIAR EL DATO
+     //   SPIWRITE(ADRESH); //ENVIAR EL DATO
         SPIREAD();
         
           
