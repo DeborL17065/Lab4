@@ -39,19 +39,21 @@ int DEC_INC ;
 
 void main(void) {
     init();
-    _RX_TX();
     CONF_SPI();
-    
+    _RX_TX();
+
     while (1){ 
+
+        PORTAbits.RA4 = 0;       //Slave Select
+        SPIWRITE(25); //ENVIAR EL DATO
+        SPIREAD(); //LEEMOS EL DATO DEL ESCLAVO  
         
-        SPIWRITE("25"); //ENVIAR EL DATO
-        SPIREAD();
-        SerialSendChar(RANDOM);
-     
-        
+        PORTAbits.RA4 = 1;       //Slave Deselect 
+        __delay_ms(1);
+ 
     
     }
-    return;   
+    return;     
 }
 
 
@@ -60,13 +62,22 @@ void __interrupt() isr(void){
     if (PIR1bits.RCIF ==1){
         if(RCSTAbits.OERR ==1){
             RCSTAbits.OERR =0;
-            __delay_us(255);
+            __delay_us(10);
         }
         else {
-            DEC_INC = RCREG;
+            DEC_INC = RCREG; //ASIGNAMOS EL DATO SERIAL
+            PORTD = DEC_INC; //ASIGNAMOS EL DATO SERIAL AL PORTD
         }
     }
-    PIR1bits.RCIF =0;
+    __delay_ms(1);
+    PORTAbits.RA4 = 0;       //Slave Select
+    SPIWRITE(25); //ENVIAR EL DATO
+    SPIREAD();
+ 
+    SerialSendChar(RANDOM);   
+    __delay_ms(1);
+    PORTAbits.RA4 = 1;       //Slave Deselect 
+ 
     
 
 
@@ -87,6 +98,7 @@ void init(void) {
     TRISCbits.TRISC7 =1; //Rx como entrada
     PORTD =0;          //se limpia el puerto D
     ANSELH =0;
+    ANSEL=0;
     
    
 }
