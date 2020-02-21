@@ -37,29 +37,34 @@
 
 void init(void);
 
+void __interrupt() isr(void){ 
+    
+  
+    if (PIR1bits.SSPIF == 1){
+        SPIWRITE(SENSOR1);//ENVIAMOS DATO DEL POT1
+        __delay_ms(4);
+        if (PIR1bits.SSPIF == 1){
+            SPIWRITE(SENSOR2); //ENVIAMOS DATO DEL POT2
+        }
+        PIR1bits.SSPIF =0;
+    }
+
+}
+
 void main(void) {
     init();
     CONF_SPI();
-    LCD_INIT();
+ //   LCD_INIT();
     while (1) {
         CONF_ADC();
-     //   SPIWRITE(ADRESH); //ENVIAR EL DATO
-        SPIREAD();
-        
-          
-      
+     
     
     }
            
     return;
 }
 
-void __interrupt() isr(void){
-    
-    
 
-
-}
 
 void init(void) { 
     ///8MH
