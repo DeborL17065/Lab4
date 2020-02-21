@@ -6,7 +6,7 @@
  */
 
 ///SLAVE
-
+#define _XTAL_FREQ   8000000
 #include <xc.h>
 #include <pic16f887.h>
 #include <stdint.h>
@@ -18,6 +18,7 @@
 void CONF_SPI(void){
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
+    PIE1bits.SSPIE = 1;
     ///////////////////////////////////////////////////////
     TRISCbits.TRISC5 =0; //SDO SALIDA DE DATOS
     TRISCbits.TRISC3 =1; //SCK ENTRADA DEL RELOJ
@@ -37,18 +38,13 @@ void CONF_SPI(void){
 }
 
 void SPIWRITE (char dato){
-    //PORTAbits.RA5 =0;
-    SSPBUF = dato;
-    while(SSPSTATbits.BF); //ESPERAR A QUE CAMBIE LA BANDERA
-   // SSPCONbits.SSPOV = 0; //LIMPIAR OVERFLOW BANDERA
-    return;
+
+        SSPBUF = dato; //ENVIAMOS DATO
+   
 }
 
 void SPIREAD (void){
-    if (SSPSTATbits.BF == 1){
-        RANDOM = SSPBUF;
-        SSPSTATbits.BF =0;   
-    }
+    RANDOM = SSPBUF; 
     return;
 }
 
