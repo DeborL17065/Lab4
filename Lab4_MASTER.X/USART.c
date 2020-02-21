@@ -14,6 +14,8 @@
 #include "USART.h"
 
 void _RX_TX (void){
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
     TXSTAbits.TX9  =0;
     RCSTAbits.RX9  =0;
     
